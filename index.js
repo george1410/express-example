@@ -28,7 +28,7 @@ app.get('/api/user/:id', (req, res) => {
 
         // Parse the contents of the file as JSON
         // i.e. convert it to a 'real' javascript array of objects
-        var = userArr = JSON.parse(data);
+        var userArr = JSON.parse(data);
 
         // Get the user object from the array that has the ID we provided as a URL parameter
         var theUser = userArr.find(user => user.id == req.params.id);
@@ -83,7 +83,7 @@ app.post('/api/user', (req, res) => {
             }
         });
 
-        // Return the neqly created user object back to the client (in JSON form)
+        // Return the newly created user object back to the client (in JSON form)
         res.send(newData);
     });
 });
