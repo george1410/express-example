@@ -61,7 +61,7 @@ app.get('/api/user/:id', (req, res) => {
         }
 
         // Return the requested user object back to the client (in JSON form)
-        res.send(theUser);
+        res.json(theUser);
     });
 });
 
@@ -105,7 +105,7 @@ app.post('/api/user', (req, res) => {
         });
 
         // Return the newly created user object back to the client (in JSON form)
-        res.send(newData);
+        res.json(newData);
     });
 });
 
@@ -158,7 +158,7 @@ app.post('/api/user/:id', (req, res) => {
         });
 
         // Return the requested user object back to the client (in JSON form)
-        res.send(theUser);
+        res.json(theUser);
     });
 
 });
