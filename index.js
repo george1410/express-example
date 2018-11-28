@@ -133,7 +133,7 @@ app.post('/api/user/:id', (req, res) => {
 
         // Get the user object from the array that has the ID we provided as a URL parameter
         var theUser = userArr.find(user => user.id === parseInt(req.params.id));
-        if (theUser == undefined) {
+        if (theUser === undefined) {
             // If theUser is undefined (i.e. there is no user with the provided ID)
             // Return 404 (Not Found) to the client
             res.sendStatus(404);
