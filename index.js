@@ -10,7 +10,7 @@
 var express = require('express');
 var app = express();
 var fs = require('fs');
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 // Handles all HTTP GET requests to /api/user/<user_id>
@@ -28,7 +28,7 @@ app.get('/api/user/:id', (req, res) => {
 
         // Parse the contents of the file as JSON
         // i.e. convert it to a 'real' javascript array of objects
-        userArr = JSON.parse(data);
+        var = userArr = JSON.parse(data);
 
         // Get the user object from the array that has the ID we provided as a URL parameter
         var theUser = userArr.find(user => user.id == req.params.id);
@@ -63,7 +63,7 @@ app.post('/api/user', (req, res) => {
         }
         // Parse the contents of the file as JSON
         // i.e. convert it to a 'real' javascript array of objects
-        userArr = JSON.parse(data);
+        var userArr = JSON.parse(data);
 
         // Set the id property of the new object
         // Note that this is a really bad way of generating unique IDs, but it will do for this
