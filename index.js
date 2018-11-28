@@ -10,8 +10,28 @@
 var express = require('express');
 var app = express();
 var fs = require('fs');
-var bodyParser = require('body-parser');
+var bodyParser = require('body-parser')
+var path = require('path');
 app.use(bodyParser.json());
+
+// Format responses that are in json with 2 spaces
+// You can just ignore this as it does not change functionality
+app.set('json spaces', 2);
+
+// Shows the whole array, when a request is made to /api/users
+app.get('/api/users', (req, res) => {
+    // Read the JSON file where we store our user data into memory
+    fs.readFile('users.json', (err, data) => {
+        if (err) {
+            // If an error occured while reading the file, return HTTP Status Code 500 (Internal Error) to client
+            console.log("Error reading JSON.");
+            res.sendStatus(500);
+            return;
+        }
+        // Send all of the data as json that was previously read
+        res.json(JSON.parse(data));
+    })
+});
 
 // Handles all HTTP GET requests to /api/user/<user_id>
 // Should return the data object for the requested user ID
@@ -31,9 +51,10 @@ app.get('/api/user/:id', (req, res) => {
         var userArr = JSON.parse(data);
 
         // Get the user object from the array that has the ID we provided as a URL parameter
-        var theUser = userArr.find(user => user.id == req.params.id);
-        if (theUser == null) {
-            // If theUser is null (i.e. there is no user with the provided ID)
+        //reg.params.id is actually a string and is thus parsed to an int for comparison
+        var theUser = userArr.find(user => user.id === parseInt(req.params.id));
+        if (theUser === undefined) {
+            // If theUser is undefined (i.e. there is no user with the provided ID)
             // Return 404 (Not Found) to the client
             res.sendStatus(404);
             return;
@@ -88,5 +109,16 @@ app.post('/api/user', (req, res) => {
     });
 });
 
+
+// Responds with an html file
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname + '/index.html'));
+})
+
+// Redirects every route back to '/'
+// This needs to be the last route as it acts as a catch-all
+app.get('*', function (req, res) {
+    res.redirect('/');
+});
 
 app.listen(3000);
