@@ -1,9 +1,9 @@
 /**
  * George McCarron - 2018
  * hello@georgemccarron.com
- * 
+ *
  * index.js
- * 
+ *
  * A really simple example of a REST API using Express.js
  */
 
@@ -56,6 +56,7 @@ app.get('/api/user/:id', (req, res) => {
         if (theUser === undefined) {
             // If theUser is undefined (i.e. there is no user with the provided ID)
             // Return 404 (Not Found) to the client
+            console.log("Error, the user is undefined.")
             res.sendStatus(404);
             return;
         }
@@ -73,7 +74,7 @@ app.post('/api/user', (req, res) => {
     // Note that it has already been converted into a JavaScript object
     // This is because we require and use 'body-parser' at the top of this file
     var newData = req.body;
-    
+
     // read the JSON file where we store our user data into memory
     fs.readFile('users.json', (err, data) => {
         if (err) {
